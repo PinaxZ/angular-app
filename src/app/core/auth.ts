@@ -12,8 +12,9 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http.post<{ ok: boolean; redirect: string }>(
-      `${this.API}/api/auth/login/`,
-      { username, password }
+      `${environment.API_URL}/api/auth/login/`,
+      { username, password },
+      { withCredentials: true }
     );
   }
 

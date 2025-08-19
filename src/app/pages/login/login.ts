@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../core/auth';
+import { AuthService } from '../../core/auth'; // o '../../core/auth.service' según tu ruta real
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environments';
 
 @Component({
   selector: 'app-login',
@@ -35,9 +36,8 @@ export class LoginComponent {
 
     this.auth.login(username!, password!).subscribe({
       next: (res) => {
-        // Django ya creó la sesión; redirigimos al path que regresó el backend
-        // p.ej. res.redirect === "/consulta/"
-        window.location.href = `http://127.0.0.1:8000${res.redirect}`;
+        // Django ya creó la sesión; redirigimos al path que regresa el backend (p.ej. "/consulta/")
+        window.location.href = `${environment.API_URL}${res.redirect}`;
       },
       error: (err) => {
         console.error('LOGIN ERROR =>', err.status, err.error);
